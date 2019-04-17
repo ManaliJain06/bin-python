@@ -6,10 +6,10 @@ import datetime
 class Trash:
     def __init__(self):
         self.mongo_url = "mongodb://cmpe297:cmpe297@ds143156.mlab.com:43156/cmpe297"
-        # self.mongo_url = "mongodb://arihantsaiparuchuru:Arihant123@ds041157.mlab.com:41157/trash-capacity-notifier"
+        # self.mongo_url = "mongodb://arihaxntsaiparuchuru:Arihant123@ds041157.mlab.com:41157/trash-capacity-notifier"
         self.mongo_db = "cmpe297"
         self.mongo_db_collection = "TrashCapacity"
-        self.bin_id = "5bfeef7033a5340fd7215b7attt"
+        self.bin_id = "5bfeef7033a5340fd7215b7a"
         self.bin_max_height = 300
         self.bin_location = "MLK Library"
         self.client = MongoClient(self.mongo_url)
@@ -32,6 +32,7 @@ class Trash:
         now = datetime.datetime.now().isoformat().split(".")[0]
         d={"height":height,"timestamp":now}
         try:
+            #self.collection.insert_one({"_id":ObjectId(self.bin_id)})
             #self.collection.insert_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } });
             self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": d } });
             #self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } })
@@ -41,6 +42,8 @@ class Trash:
             # with open("bin.log","a+") as f:
             #     f.write("Connection Error on : "+now+" | "+str(d)+"\n")
             print ("error")
+            raise
+            #print(e)
 """"
 new_data = [
     {"location":"MLK Floor 1","max_height":"200","capacity":[]},

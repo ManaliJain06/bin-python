@@ -1,23 +1,23 @@
-import RPi.GPIO as GPIO         #Import GPIO Library
+#import RPi.GPIO as GPIO         #Import GPIO Library
 import time
 from sample import Trash
 
 if __name__ == "__main__":
     bin = Trash()
-    GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering
+    #GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering
 
     TRIG = 4                                  #Associate pin 4 to TRIG
     ECHO = 17                                  #Associate pin 17 to ECHO
 
     print ("Distance measurement in progress")
 
-    GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
-    GPIO.setup(ECHO,GPIO.IN)                   #Set pin as GPIO in
+    #GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
+    #GPIO.setup(ECHO,GPIO.IN)                   #Set pin as GPIO in
 
     while True:
         print("Waitng For Sensor To Settle")
         bin.updateBin(10)
-        GPIO.output(TRIG, False)                 #Set TRIG as LOW
+        '''GPIO.output(TRIG, False)                 #Set TRIG as LOW
         print("Waitng For Sensor To Settle")
         time.sleep(2)                            #Delay of 2 seconds
 
@@ -41,4 +41,4 @@ if __name__ == "__main__":
             #bin.updateBin(distance)
             bin.updateBin(10)
         else:
-            print "Out Of Range"                  #display out of range
+            print "Out Of Range"   '''               #display out of range
