@@ -1,4 +1,4 @@
-from pymongo import MongoClient;
+from pym    ongo import MongoClient;
 from bson.objectid import ObjectId
 # from twilio.rest import Client
 import datetime
@@ -32,7 +32,8 @@ class Trash:
         now = datetime.datetime.now().isoformat().split(".")[0]
         d={"height":height,"timestamp":now}
         try:
-            self.collection.insert_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } });
+            #self.collection.insert_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } });
+            self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": d } });
             #self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } })
             # if(abs(self.bin_max_height-height)<20):
             # 	self.sendMessage(height)
