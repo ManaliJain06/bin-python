@@ -1,7 +1,7 @@
 #Libraries
 import RPi.GPIO as GPIO
 import time
-import DustBin from dustbin
+from dustbin import DustBin
 
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
