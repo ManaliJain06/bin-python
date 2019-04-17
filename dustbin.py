@@ -24,7 +24,8 @@ class DustBin:
         d={"height":height,"timestamp":now}
         try:
             if(abs(self.prev_dustbin_height - height) > 5):
-                self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": height, "timestamp": now}});
+                print("*****Updating database*******")
+                self.collection.insert_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": height, "timestamp": now}});
                 self.prev_dustbin_height = height
                 if(abs(self.bin_max_height - height) < 20):
                     print("Dustbin is almost full !!!")
