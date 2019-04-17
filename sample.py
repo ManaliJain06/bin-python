@@ -1,6 +1,6 @@
 from pymongo import MongoClient;
 from bson.objectid import ObjectId
-from twilio.rest import Client
+# from twilio.rest import Client
 import datetime
 
 class Trash:
@@ -9,7 +9,7 @@ class Trash:
         # self.mongo_url = "mongodb://arihantsaiparuchuru:Arihant123@ds041157.mlab.com:41157/trash-capacity-notifier"
         self.mongo_db = "cmpe297"
         self.mongo_db_collection = "TrashCapacity"
-        self.bin_id = "5bfeef7033a5340fd7215b7a"
+        self.bin_id = "5bfeef7033a5340fd7215b7attt"
         self.bin_max_height = 300
         self.bin_location = "MLK Library"
         self.client = MongoClient(self.mongo_url)
@@ -32,7 +32,7 @@ class Trash:
         now = datetime.datetime.now().isoformat().split(".")[0]
         d={"height":height,"timestamp":now}
         try:
-            self.collection.insert_one({"name":"Manali"});
+            self.collection.insert_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } });
             #self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$addToSet": { "capacity": d } })
             # if(abs(self.bin_max_height-height)<20):
             # 	self.sendMessage(height)
