@@ -23,7 +23,7 @@ class DustBin:
         now = datetime.datetime.now().isoformat().split(".")[0]
         d={"height":height,"timestamp":now}
         try:
-            if(abs(prev_dustbin_height - height) > 5):
+            if(abs(self.prev_dustbin_height - height) > 5):
                 self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": height, "timestamp": now}});
                 self.prev_dustbin_height = height
                 if(abs(self.bin_max_height - height) < 20):
