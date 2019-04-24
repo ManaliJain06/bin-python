@@ -10,8 +10,8 @@ class DustBin:
         self.mongo_db_collection = "TrashCapacity"
         self.mongo_db_collection_log = "TrashLogs"
         self.bin_id = "5bfeef7033a5340fd7215b7a"
-        self.bin_max_height = 198
-        self.prev_dustbin_height = 198
+        self.bin_max_height = 21
+        self.prev_dustbin_height = self.bin_max_height
         self.bin_location = "MLK Library"
         self.client = MongoClient(self.mongo_url)
         self.db = self.client[self.mongo_db]
@@ -28,19 +28,20 @@ class DustBin:
 
 
     def updateBin(self,height):
-        print ("updateBin current height : ", height)
+
         if not(height >= 1 and height <= self.bin_max_height):
-            print("Height out of range !!!")
+            print("Height out of range !!!", height)
             return
+        print ("updateBin current height : ", height)
         now = datetime.datetime.now()
         d = {"height":height,"timestamp":now}
         try:
-            if(abs(self.prev_dustbin_height - height) > 5):
+            if(abs(self.prev_dustbin_height - height) > 2):
                 print("*****Updating database*******\n\n")
                 self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": (self.bin_max_height - height), "timestamp": now}});
                 self.trash_log_collection.insert_one({"max_height":self.bin_max_height,"current_height":(self.bin_max_height - height), "timestamp": now,"bin_id":self.bin_id})
                 self.prev_dustbin_height = height
-                if(abs(self.bin_max_height - height) > 170):
+                if( height <= 5):
                     print("Dustbin is almost full !!!")
                     #self.sendSMS()
             else:
