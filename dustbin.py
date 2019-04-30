@@ -19,8 +19,8 @@ class DustBin:
         self.trash_log_collection = self.db[self.mongo_db_collection_log]
 
     def sendSMS(self):
-        account_sid = 'AC67863e4c5ec2c424ecf5cc26ec466d36'
-        auth_token = '7a7f1773699682ed4de7b8b1b976ac59'
+        account_sid = 'ACe203774c5b6444314a8cb85872d5fa40'
+        auth_token = 'c8a6dc2aa268c86b009a5923f0dae718'
         client = Client(account_sid, auth_token)
         msg = "The bin placed at " + " MLK LIbrary" + " is about to get completely filled. It needs assitance."
         message = client.messages.create(body = msg,from_ = '+15128569912',to = '+15122010228')
