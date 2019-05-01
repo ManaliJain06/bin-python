@@ -47,8 +47,8 @@ if __name__ == '__main__':
         while True:
             dist = distance()
             print ("Measured Distance = %.1f cm" % dist)
-            trash.updateBin(dist)
-            time.sleep(5)
+            trash.updateBin(round(dist))
+            time.sleep(8)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
