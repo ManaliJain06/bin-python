@@ -37,9 +37,11 @@ class DustBin:
         now = datetime.datetime.now()
         d = {"height":height,"timestamp":now}
         try:
-            if(abs(self.prev_dustbin_height - height) > 2 or self.shld_update_initial_height):
-                print("*****Updating database*******\n\n")
+            if(self.shld_update_initial_height):
+                self.trash_log_collection.insert_one({"_id":ObjectId(self.bin_id), "capacity":self.bin_max_height})
                 self.shld_update_initial_height = False
+            if(abs(self.prev_dustbin_height - height) > 2):
+                print("*****Updating database*******\n\n")
                 self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": (self.bin_max_height - height), "timestamp": now}});
                 self.trash_log_collection.insert_one({"max_height":self.bin_max_height,"current_height":(self.bin_max_height - height), "timestamp": now,"bin_id":self.bin_id})
                 self.prev_dustbin_height = height
