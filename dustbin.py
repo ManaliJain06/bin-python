@@ -37,7 +37,7 @@ class DustBin:
         now = datetime.datetime.now()
         d = {"height":height,"timestamp":now}
         try:
-            if(abs(self.prev_dustbin_height - height) > 2 || self.shld_update_initial_height):
+            if(abs(self.prev_dustbin_height - height) > 2 or self.shld_update_initial_height):
                 print("*****Updating database*******\n\n")
                 self.shld_update_initial_height = False
                 self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": (self.bin_max_height - height), "timestamp": now}});
