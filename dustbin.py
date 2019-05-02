@@ -10,7 +10,7 @@ class DustBin:
         self.mongo_db_collection = "TrashCapacity"
         self.mongo_db_collection_log = "TrashLogs"
         self.bin_id = "5bfeef7033a5340fd7215b7a"
-        self.bin_max_height = 21
+        self.bin_max_height = 27
         self.prev_dustbin_height = self.bin_max_height
         self.bin_location = "MLK Library"
         self.client = MongoClient(self.mongo_url)
@@ -45,7 +45,7 @@ class DustBin:
                     print("Dustbin is almost full, sending sms alert !!!")
                     self.sendSMS()
             else:
-                print("Nothing got added !!!")
+                print("No significant change !!!")
             print("\n_______________________________________________________________\n")
         except Exception as e:
             print ("error")
