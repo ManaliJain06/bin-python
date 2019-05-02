@@ -17,6 +17,7 @@ class DustBin:
         self.db = self.client[self.mongo_db]
         self.collection = self.db[self.mongo_db_collection]
         self.trash_log_collection = self.db[self.mongo_db_collection_log]
+        self.shld_update_initial_height = True
 
     def sendSMS(self):
         account_sid = 'ACe203774c5b6444314a8cb85872d5fa40'
@@ -36,8 +37,9 @@ class DustBin:
         now = datetime.datetime.now()
         d = {"height":height,"timestamp":now}
         try:
-            if(abs(self.prev_dustbin_height - height) > 2):
+            if(abs(self.prev_dustbin_height - height) > 2 || self.shld_update_initial_height):
                 print("*****Updating database*******\n\n")
+                self.shld_update_initial_height = False
                 self.collection.update_one({"_id":ObjectId(self.bin_id)},{ "$set": { "capacity": (self.bin_max_height - height), "timestamp": now}});
                 self.trash_log_collection.insert_one({"max_height":self.bin_max_height,"current_height":(self.bin_max_height - height), "timestamp": now,"bin_id":self.bin_id})
                 self.prev_dustbin_height = height
