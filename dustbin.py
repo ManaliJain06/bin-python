@@ -1,7 +1,7 @@
 from pymongo import MongoClient;
 from bson.objectid import ObjectId
 from twilio.rest import Client
-import datetime
+from datetime import datetime, timedelta
 
 class DustBin:
     def __init__(self):
@@ -34,7 +34,8 @@ class DustBin:
             print("Height out of range !!!", height)
             return
         print ("updateBin current height : ", height)
-        now = datetime.datetime.now()
+        #now = datetime.datetime.now()
+        now = datetime.now() - timedelta(1)
         d = {"height":height,"timestamp":now}
         try:
             if(self.shld_update_initial_height):
